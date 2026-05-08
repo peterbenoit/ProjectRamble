@@ -4,10 +4,12 @@ import { X, ExternalLink, Plus, Check, MapPin } from 'lucide-react';
 import { toast } from 'sonner';
 import { useMapStore } from '@/store/map.store';
 import { useItineraryStore } from '@/store/itinerary.store';
+import { useLocationStore } from '@/store/location.store';
 import { useByways } from '@/hooks/useByways';
+import { distanceMiles } from '@/lib/proximity-sort';
 import { cn } from '@/lib/utils';
 import type { BywayProperties } from '@/types';
-import type { Feature } from 'geojson';
+import type { Feature, LineString, MultiLineString } from 'geojson';
 
 interface Props {
   bywayId: string;
@@ -18,6 +20,7 @@ export default function BywayCard({ bywayId, onClose }: Props) {
   const byways = useByways();
   const { mapInstance } = useMapStore();
   const { itinerary, addStop } = useItineraryStore();
+  const userLocation = useLocationStore((s) => s.coordinates);
 
   const feature = byways?.features.find((f: Feature) => f.properties?.id === bywayId);
   const props = feature?.properties as BywayProperties | undefined;
@@ -26,14 +29,40 @@ export default function BywayCard({ bywayId, onClose }: Props) {
 
   const isInItinerary = itinerary.stops.some((s) => s.bywayId === bywayId);
 
+  // Find the vertex on this byway's geometry nearest to the user (or map center)
+  function nearestVertexOnByway(): { lat: number; lng: number } {
+    const reference = userLocation ?? (() => {
+      const c = mapInstance?.getCenter();
+      return c ? { lat: c.lat(), lng: c.lng() } : { lat: 0, lng: 0 };
+    })();
+
+    if (!feature) return reference;
+
+    const allCoords: number[][] = [];
+    if (feature.geometry.type === 'LineString') {
+      allCoords.push(...(feature as Feature<LineString>).geometry.coordinates);
+    } else if (feature.geometry.type === 'MultiLineString') {
+      (feature as Feature<MultiLineString>).geometry.coordinates.forEach((line) =>
+        allCoords.push(...line),
+      );
+    }
+
+    if (allCoords.length === 0) return reference;
+
+    let nearest = { lat: allCoords[0][1], lng: allCoords[0][0] };
+    let minDist = distanceMiles(reference, nearest);
+    for (const [lng, lat] of allCoords) {
+      const d = distanceMiles(reference, { lat, lng });
+      if (d < minDist) { minDist = d; nearest = { lat, lng }; }
+    }
+    return nearest;
+  }
+
   const handleAdd = () => {
-    const center = mapInstance?.getCenter();
     addStop({
       type: 'byway_waypoint',
-      name: `${props.name} — Waypoint`,
-      coordinates: center
-        ? { lat: center.lat(), lng: center.lng() }
-        : { lat: 0, lng: 0 },
+      name: props.name,
+      coordinates: nearestVertexOnByway(),
       bywayId: props.id,
     });
     toast.success('Added to itinerary');
