@@ -69,7 +69,7 @@ export default function POIMarkers() {
         zIndex: isSelected ? 10 : stopPlaceIds.has(poi.placeId) ? 5 : 1,
       });
 
-      marker.addListener('click', () => { setDrawerOpen(false); selectPOI(poi); });
+      marker.addListener('gmp-click', () => { setDrawerOpen(false); selectPOI(poi); });
       markersRef.current.push(marker);
     });
 
@@ -77,7 +77,7 @@ export default function POIMarkers() {
       markersRef.current.forEach((m) => (m.map = null));
       markersRef.current = [];
     };
-  }, [mapInstance, pois, selectedPOI, itinerary.stops, selectPOI]);
+  }, [mapInstance, pois, selectedPOI, itinerary.stops, selectPOI, setDrawerOpen]);
 
   return null;
 }

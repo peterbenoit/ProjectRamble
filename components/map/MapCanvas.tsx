@@ -26,7 +26,6 @@ export default function MapCanvas({ onMapClick }: Props) {
         disableDefaultUI: true,
         gestureHandling: 'greedy',
         clickableIcons: false,
-        mapId: 'pathweaver-map',
       });
 
       map.addListener('center_changed', () => {

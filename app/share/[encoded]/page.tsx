@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { decodeItinerary } from '@/lib/url-encoding';
 import type { SharedItinerary } from '@/types';
 import { MapPin, ExternalLink } from 'lucide-react';
@@ -31,9 +32,9 @@ export default async function SharePage({ params }: Props) {
         <div className="text-center">
           <h1 className="text-xl font-semibold text-[#f8fafc] mb-2">Link not found</h1>
           <p className="text-[#94a3b8] text-sm mb-6">This link may be invalid or expired.</p>
-          <a href="/" className="text-[#3b82f6] hover:underline text-sm">
+          <Link href="/" className="text-[#3b82f6] hover:underline text-sm">
             Open PathWeaver →
-          </a>
+          </Link>
         </div>
       </div>
     );
