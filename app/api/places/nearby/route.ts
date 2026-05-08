@@ -5,7 +5,7 @@ export async function POST(req: NextRequest) {
   const {
     coordinates,
     radiusMeters = 16093,
-    types = ['park', 'natural_feature', 'campground'],
+    types = ['park', 'campground', 'national_park', 'state_park', 'hiking_area'],
   } = await req.json();
 
   const response = await fetch('https://places.googleapis.com/v1/places:searchNearby', {
@@ -29,7 +29,9 @@ export async function POST(req: NextRequest) {
   });
 
   if (!response.ok) {
-    return NextResponse.json({ error: 'Places API error' }, { status: 502 });
+    const errorBody = await response.text();
+    console.error('[places/nearby] Google API error', response.status, errorBody);
+    return NextResponse.json({ error: 'Places API error', detail: errorBody }, { status: 502 });
   }
 
   const data = await response.json();

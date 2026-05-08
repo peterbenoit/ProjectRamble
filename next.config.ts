@@ -8,7 +8,13 @@ const withSerwist = withSerwistInit({
 });
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.geojson$/,
+      type: 'json',
+    });
+    return config;
+  },
 };
 
 export default withSerwist(nextConfig);
