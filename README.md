@@ -1,8 +1,8 @@
-# PathWeaver
+# ProjectRamble (working title)
 
 **Working title.** A unified exploration and routing engine for the US.
 
-PathWeaver merges three separate tools — [Florida's Scenic Byways](https://floridascenicbyways.com), [RouteHub](https://route-hub.com), and [ParkFindr](https://parkfindr.app) — into a single, cohesive application. It surfaces nearby points of interest, overlays curated scenic corridors on the map, and lets you stitch stops into a shareable, optimized itinerary. All without accounts, databases, or app store installs.
+ProjectRamble (working title) merges three separate tools — [Florida's Scenic Byways](https://floridascenicbyways.com), [RouteHub](https://route-hub.com), and [ParkFindr](https://parkfindr.app) — into a single, cohesive application. It surfaces nearby points of interest, overlays curated scenic corridors on the map, and lets you stitch stops into a shareable, optimized itinerary. All without accounts, databases, or app store installs.
 
 ---
 
