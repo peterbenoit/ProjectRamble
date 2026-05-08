@@ -103,7 +103,7 @@ export default function MapView() {
 
       {/* Bottom-right: itinerary FAB */}
       <button
-        onClick={() => setDrawerOpen(true)}
+        onClick={() => { selectPOI(null); selectByway(null); setDrawerOpen(true); }}
         aria-label={`Open itinerary${stopCount > 0 ? `, ${stopCount} stops` : ''}`}
         className="absolute bottom-8 right-4 z-20 min-w-[56px] min-h-[56px] flex items-center justify-center rounded-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white shadow-lg transition-colors"
       >

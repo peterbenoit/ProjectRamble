@@ -32,13 +32,10 @@ function createPOIMarkerElement(poi: POI, isSelected: boolean, stopIndex: number
   icon.setAttribute('width', '16');
   icon.setAttribute('height', '16');
   icon.setAttribute('viewBox', '0 0 24 24');
-  icon.setAttribute('fill', 'none');
-  icon.setAttribute('stroke', isSelected ? 'var(--color-accent, #3b82f6)' : 'white');
-  icon.setAttribute('stroke-width', '2');
-  icon.setAttribute('stroke-linecap', 'round');
-  icon.setAttribute('stroke-linejoin', 'round');
-  // Tree/leaf icon path
-  icon.innerHTML = '<path d="M17 8C8 10 5.9 16.17 3.82 19.83M12 22V12M12 12C12 12 15 9 19 9M12 12C12 12 9 9 5 9"/>';
+  icon.setAttribute('fill', isSelected ? 'var(--color-accent, #3b82f6)' : 'white');
+  icon.setAttribute('stroke', 'none');
+  // Pine tree: triangle canopy + trunk
+  icon.innerHTML = '<path d="M12 2L20 17H4L12 2Z M10 17H14V22H10Z"/>';
   el.appendChild(icon);
 
   return el;
@@ -47,7 +44,7 @@ function createPOIMarkerElement(poi: POI, isSelected: boolean, stopIndex: number
 export default function POIMarkers() {
   const { mapInstance } = useMapStore();
   const { pois, selectedPOI, selectPOI } = useDiscoveryStore();
-  const { itinerary } = useItineraryStore();
+  const { itinerary, setDrawerOpen } = useItineraryStore();
   const markersRef = useRef<google.maps.marker.AdvancedMarkerElement[]>([]);
 
   useEffect(() => {
@@ -72,7 +69,7 @@ export default function POIMarkers() {
         zIndex: isSelected ? 10 : stopPlaceIds.has(poi.placeId) ? 5 : 1,
       });
 
-      marker.addListener('click', () => selectPOI(poi));
+      marker.addListener('click', () => { setDrawerOpen(false); selectPOI(poi); });
       markersRef.current.push(marker);
     });
 

@@ -4,12 +4,14 @@ import { useEffect, useRef } from 'react';
 import type { Feature, LineString, MultiLineString, GeoJsonProperties } from 'geojson';
 import { useMapStore } from '@/store/map.store';
 import { useDiscoveryStore } from '@/store/discovery.store';
+import { useItineraryStore } from '@/store/itinerary.store';
 import { useByways } from '@/hooks/useByways';
 import type { BywayProperties } from '@/types';
 
 export default function BywayLayer() {
   const { mapInstance, bywaysVisible } = useMapStore();
   const { selectByway } = useDiscoveryStore();
+  const { setDrawerOpen } = useItineraryStore();
   const byways = useByways();
   const polylinesRef = useRef<google.maps.Polyline[]>([]);
 
@@ -45,7 +47,7 @@ export default function BywayLayer() {
           clickable: true,
         });
 
-        polyline.addListener('click', () => selectByway(props.id));
+        polyline.addListener('click', () => { setDrawerOpen(false); selectByway(props.id); });
         polyline.addListener('mouseover', () => {
           polyline.setOptions({ strokeWeight: 6, strokeOpacity: 1 });
         });
