@@ -151,7 +151,7 @@ The core workflow inherited from RouteHub.
 - Drawer is triggered by a persistent floating action button on the map
 - Drawer shows a count badge on the FAB when stops are present (e.g., "3")
 - Stops are displayed in a numbered list with name, type, and field note preview
-- Stops can be reordered by dragging (dnd-kit); works on mobile touch and desktop mouse
+- Stops can be reordered by dragging (vuedraggable); works on mobile touch and desktop mouse
 - "Sort by proximity" button reorders stops using the nearest-neighbor algorithm
   (starting from current location)
 - Each stop has a delete button
