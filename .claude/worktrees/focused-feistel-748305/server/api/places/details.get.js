@@ -2,7 +2,7 @@
 // See docs/API_INTEGRATIONS.md#server-route-place-details
 // Query param: ?placeId=ChI...
 
-import { normalizePlacesResult } from '../../../lib/places.js'
+import { normalizePlacesResult } from '~/lib/places.js'
 
 export default defineEventHandler(async (event) => {
   const { placeId } = getQuery(event)
