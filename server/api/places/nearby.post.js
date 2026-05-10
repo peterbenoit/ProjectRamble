@@ -10,7 +10,15 @@ export default defineEventHandler(async (event) => {
 
   const apiKey = useRuntimeConfig().googlePlacesApiKey
 
-  // TODO: validate coordinates are present and numeric
+  if (
+    !coordinates ||
+    typeof coordinates.lat !== 'number' ||
+    typeof coordinates.lng !== 'number' ||
+    !isFinite(coordinates.lat) ||
+    !isFinite(coordinates.lng)
+  ) {
+    throw createError({ statusCode: 400, statusMessage: 'coordinates.lat and coordinates.lng must be finite numbers' })
+  }
 
   const response = await fetch('https://places.googleapis.com/v1/places:searchNearby', {
     method: 'POST',

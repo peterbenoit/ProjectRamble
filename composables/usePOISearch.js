@@ -3,6 +3,8 @@
 
 import { useDiscoveryStore } from '../stores/discovery.store.js'
 
+const MAX_RETRIES = 3
+
 export function usePOISearch() {
   const store = useDiscoveryStore()
 
@@ -12,12 +14,31 @@ export function usePOISearch() {
    * @param {{ lat: number, lng: number }} coords
    */
   async function searchNearby(coords) {
-    // TODO: implement
-    // 1. Set store.isSearching = true
-    // 2. POST to /api/places/nearby with coords
-    // 3. On success, call store.setResults(pois)
-    // 4. On failure, show a non-blocking toast (do not crash the map)
-    // 5. Set store.isSearching = false
+    store.setSearching(true)
+    let lastError
+
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+      try {
+        const pois = await $fetch('/api/places/nearby', {
+          method: 'POST',
+          body: { coordinates: coords },
+        })
+        store.setResults(pois)
+        store.setSearching(false)
+        return
+      } catch (err) {
+        lastError = err
+        if (attempt < MAX_RETRIES) await new Promise((r) => setTimeout(r, attempt * 500))
+      }
+    }
+
+    store.setSearching(false)
+    // Non-blocking toast — use useNuxtApp().$toast if Sonner is configured,
+    // otherwise log to console so the map stays functional
+    if (typeof useNuxtApp !== 'undefined') {
+      try { useNuxtApp().$toast?.error('Could not load nearby places') } catch { /* noop */ }
+    }
+    console.warn('[usePOISearch] searchNearby failed after retries:', lastError)
   }
 
   return {

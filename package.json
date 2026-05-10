@@ -1,29 +1,35 @@
 {
-  "name": "pathweaver",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "dev": "nuxt dev",
-    "build": "nuxt build",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "lint": "eslint ."
-  },
-  "dependencies": {
-    "@googlemaps/js-api-loader": "^1.16.8",
-    "@pinia/nuxt": "^0.9.0",
-    "clsx": "^2.1.1",
-    "lz-string": "^1.5.0",
-    "nuxt": "^3.16.0",
-    "pinia": "^2.3.1",
-    "tailwind-merge": "^2.6.0",
-    "vuedraggable": "^4.1.0"
-  },
-  "devDependencies": {
-    "@nuxt/eslint": "^1.0.0",
-    "@nuxtjs/tailwindcss": "^6.13.2",
-    "@vite-pwa/nuxt": "^0.10.6",
-    "@vueuse/nuxt": "^12.0.0",
-    "shadcn-nuxt": "^0.11.2"
-  }
+	"name": "pathweaver",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "nuxt dev",
+		"build": "nuxt build",
+		"postbuild": "vitest run",
+		"preview": "nuxt preview",
+		"postinstall": "nuxt prepare",
+		"lint": "eslint .",
+		"test": "vitest run",
+		"test:watch": "vitest"
+	},
+	"dependencies": {
+		"@googlemaps/js-api-loader": "^1.16.8",
+		"@nuxtjs/color-mode": "^4.0.0",
+		"@pinia/nuxt": "^0.9.0",
+		"clsx": "^2.1.1",
+		"lz-string": "^1.5.0",
+		"nuxt": "^3.16.0",
+		"pinia": "^2.3.1",
+		"tailwind-merge": "^2.6.0",
+		"vuedraggable": "^4.1.0"
+	},
+	"devDependencies": {
+		"@nuxt/eslint": "^1.0.0",
+		"@nuxtjs/tailwindcss": "^6.13.2",
+		"@vite-pwa/nuxt": "^0.10.6",
+		"@vueuse/nuxt": "^12.0.0",
+		"happy-dom": "^20.9.0",
+		"shadcn-nuxt": "^0.11.2",
+		"vitest": "^4.1.5"
+	}
 }
