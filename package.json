@@ -31,5 +31,8 @@
 		"happy-dom": "^20.9.0",
 		"shadcn-nuxt": "^0.11.2",
 		"vitest": "^4.1.5"
+	},
+	"overrides": {
+		"chokidar": "3.6.0"
 	}
 }
