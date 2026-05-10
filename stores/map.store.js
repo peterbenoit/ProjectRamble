@@ -17,9 +17,22 @@ export const useMapStore = defineStore('map', {
   },
 
   actions: {
-    // TODO: setMap(mapInstance)
-    // TODO: setCenter(coords)
-    // TODO: setZoom(level)
-    // TODO: toggleLayer(key)
+    setMap(mapInstance) {
+      this.map = mapInstance
+    },
+    setCenter(coords) {
+      this.center = coords
+    },
+    setZoom(level) {
+      this.zoom = level
+    },
+    toggleLayer(key) {
+      const idx = this.activeLayers.indexOf(key)
+      if (idx === -1) {
+        this.activeLayers.push(key)
+      } else {
+        this.activeLayers.splice(idx, 1)
+      }
+    },
   },
 })

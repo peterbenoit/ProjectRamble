@@ -12,10 +12,20 @@ export const useDiscoveryStore = defineStore('discovery', {
   }),
 
   actions: {
-    // TODO: setResults(pois)
-    // TODO: selectPOI(poi)
-    // TODO: clearSelection()
-    // TODO: setSearchQuery(query)
-    // TODO: setSearching(bool)
+    setResults(pois) {
+      this.results = pois
+    },
+    selectPOI(poi) {
+      this.selectedPOI = poi
+    },
+    clearSelection() {
+      this.selectedPOI = null
+    },
+    setSearchQuery(query) {
+      this.searchQuery = query
+    },
+    setSearching(bool) {
+      this.isSearching = bool
+    },
   },
 })
