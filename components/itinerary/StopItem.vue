@@ -3,8 +3,9 @@
 // See docs/FEATURES_V1.md#feature-7 and docs/DATA_SCHEMA.md#itinerarystop
 
 import { useItineraryStore } from '../../stores/itinerary.store.js'
+import FieldNoteInput from './FieldNoteInput.vue'
 
-const props = defineProps({
+defineProps({
   /** @type {import('../../lib/types').ItineraryStop} */
   stop: {
     type: Object,

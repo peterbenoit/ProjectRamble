@@ -5,9 +5,10 @@
 import { useItinerary } from '../../composables/useItinerary.js'
 import { useItineraryStore } from '../../stores/itinerary.store.js'
 import { useLocation } from '../../composables/useLocation.js'
+import StopList from './StopList.vue'
 
 const store = useItineraryStore()
-const { stops, stopCount, isDrawerOpen, sortByProximity, getShareUrl, openInGoogleMaps } = useItinerary()
+const { stopCount, isDrawerOpen, sortByProximity, getShareUrl, openInGoogleMaps } = useItinerary()
 const { coords } = useLocation()
 
 async function handleShare() {

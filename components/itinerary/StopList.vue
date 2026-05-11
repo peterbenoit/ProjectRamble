@@ -4,6 +4,7 @@
 
 import draggable from 'vuedraggable'
 import { useItineraryStore } from '../../stores/itinerary.store.js'
+import StopItem from './StopItem.vue'
 
 const store = useItineraryStore()
 

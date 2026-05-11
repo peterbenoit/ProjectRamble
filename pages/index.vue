@@ -2,6 +2,14 @@
 // Main map view — full-screen map + UI chrome
 // See docs/FEATURES_V1.md (Features 1–4, 6, 7) and docs/ARCHITECTURE.md
 
+import MapCanvas from '../components/map/MapCanvas.vue'
+import BywayLayer from '../components/map/BywayLayer.vue'
+import POIMarkers from '../components/map/POIMarkers.vue'
+import UserLocation from '../components/map/UserLocation.vue'
+import DiscoverySearchBar from '../components/discovery/SearchBar.vue'
+import DiscoveryPOICard from '../components/discovery/POICard.vue'
+import ItineraryDrawer from '../components/itinerary/ItineraryDrawer.vue'
+
 useHead({
   title: 'PathWeaver',
   meta: [

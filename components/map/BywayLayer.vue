@@ -90,5 +90,5 @@ onUnmounted(() => clearPolylines())
 </script>
 
 <template>
-  <!-- Renders imperatively via Google Maps API — no DOM output -->
+  <span hidden aria-hidden="true" />
 </template>

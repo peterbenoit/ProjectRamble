@@ -2,7 +2,7 @@
 // See docs/API_INTEGRATIONS.md#server-route-nearby-search
 // Request body: { coordinates: { lat, lng }, radiusMeters?, types? }
 
-import { normalizePlacesResult } from '../../../lib/places.js'
+import { normalizePlacesResult } from '~/lib/places.js'
 
 export default defineEventHandler(async (event) => {
   const { coordinates, radiusMeters = 16093, types = ['park', 'natural_feature', 'campground'] } =
